@@ -1,25 +1,26 @@
 const express = require ('express');
 const tourRouter = express.Router();
-//llamar controlador
 const toursController = require('../controllers/toursController');
-const {checkTour} = require('express-validator');
+const { check } = require('express-validator');
 
 tourRouter.post('/', 
-/*[   checkTour('title','El campo "titulo" no puede estar vacio').not().isEmpty(),
-    checkTour('description','El campo "descripcion" no puede estar vacio').not().isEmpty(),
-    checkTour('body','El campo "body" no puede estar vacio').not().isEmpty(),
-    checkTour('info','La "informacion adicional" no puede estar vacio').not().isEmpty(),
-    checkTour('img','La imagen es obligatorio').not().isEmpty(),
-    checkTour('price','El campo "precio" no puede estar vacio').isEmpty(),
-    checkTour('dias','El campo "dias" no puede estar vacio').isEmpty(),
-    checkTour('ecoregiones','El campo "ecoregiones" no puede estar vacio').isEmpty(),
-    checkTour('especies','El campo "especies" es obligatorio').isEmpty(),
-]*/
+[   
+    check('title','El campo "titulo" no puede estar vacio').not().isEmpty(),
+    check('description','El campo "descripcion" no puede estar vacio').not().isEmpty(),
+    check('body','El campo "body" no puede estar vacio').not().isEmpty(),
+    check('info','La "informacion adicional" no puede estar vacio').not().isEmpty(),
+    check('img','La imagen es obligatorio').not().isEmpty(),
+    check('price','El campo "precio" no puede estar vacio').not().isEmpty(),
+    check('dias','El campo "dias" no puede estar vacio').not().isEmpty(),
+    check('ecoregiones','El campo "ecoregiones" no puede estar vacio').not().isEmpty(),
+    check('especies','El campo "especies" es obligatorio').not().isEmpty(),
+],
 toursController.createTour);
 
 // nose si lo mejor es poner: tours/:id
 tourRouter.get('/:id', toursController.findById);
 tourRouter.get('/', toursController.findAll);
-tourRouter.put('/', toursController.update);
-tourRouter.delete('/:id',toursController.delete);
+tourRouter.put('/:id', toursController.updateTour);
+tourRouter.delete('/:id',toursController.deleteTour);
+
 module.exports = tourRouter;
