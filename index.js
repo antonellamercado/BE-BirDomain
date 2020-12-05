@@ -3,12 +3,12 @@ const express = require ("express")
 const mongoose = require ("mongoose")
 const cors = require ("cors")
 require ("dotenv").config();
-
 const app = express ();
 
 //middlewares
-
+//lee arch json
 app.use(express.json());
+// habilita request desde cualq url
 app.use(cors());
 
 //Puertos 
@@ -19,7 +19,6 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log (`the server has started on port: ${PORT}`));
 
 //mongoose nos conecta a mongoDB
-
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
@@ -31,7 +30,7 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
 
 
 //set routes
-
-app.use("api/users", require("./routes/userRouter"));
+app.use("/api/users", require("./routes/userRouter"));
+app.use("/api/tours", require("./routes/tourRouter"));
 
 
