@@ -44,7 +44,7 @@ const tour = new Tours ({
     isDestacado: req.body.isDestacado
 })
 //busca para modificar el tour
-Tours.findByIdAndUpdate({id: req.body.id},{
+await Tours.findByIdAndUpdate({_id: req.body.id},{
     $set: {
         title: tour.title, 
         description: tour.description,
@@ -68,3 +68,20 @@ console.log('modificacion exitosa');
 res.status(200).json({msg: 'Tour editado correctamente'});
 res.end();
 }
+
+///////////////////////////////////////////////////7
+//eliminar tour
+exports.delete = async(req,res) => {
+    await Tours.deleteOne({_id: req.params.id})
+    .then((data) => {
+        console.log('tour eliminado', data);
+        res.status(200).json({msg: 'Tour eliminado correctamente'});
+        res.end()
+    })
+    .catch ((error) => {
+        return res.status(400).json({msg: 'Ocurrio un error al eliminar un tour'});
+
+    });
+}
+
+/////////////////////////////////////////////////////
