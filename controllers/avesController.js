@@ -15,4 +15,4 @@ const traerAves = async (req, res, next) => {
     }
     res.end();
 }
-exports.getAves = traerAves
+exports.traerAves = traerAves

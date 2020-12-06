@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const toursSchema =mongoose.Schema({
+const avesSchema =mongoose.Schema({
 nombre: 
-    {
+{
         type: String,
         required: true,
         trim: true,
-    },
+},
 nombreCientifico: 
 {
         type: String,
@@ -29,6 +29,6 @@ img:
         type: String,
         required: true,
         trim: true
-}
+},
 })
-module.exports = mongoose.model('Aves', toursSchema);
+module.exports = mongoose.model('Aves', avesSchema);
