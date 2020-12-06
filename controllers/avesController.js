@@ -6,8 +6,7 @@ const Aves = require('../models/Aves');
 const traerAves = async (req, res, next) => {
     try {
         const aves = await Aves.find({});
-        res.json(aves);
-        res.status(200).json({msg: 'Aves obtenidos correctamente'});
+        res.status(200).json({msg: 'Aves obtenidos correctamente', aves});
     } catch (error) {
         console.log('error al traer todos las aves', error);
         res.status(500).send({msg:'Ocurrio un error al traer todos las aves'});

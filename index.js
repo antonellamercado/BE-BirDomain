@@ -32,6 +32,6 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
 //set routes
 app.use("/api/users", require("./routes/userRouter"));
 app.use("/api/tours", require("./routes/tourRouter"));
-//app.use("/api/aves", require("./routes/avesRouter"));
+app.use("/api/aves", require("./routes/avesRouter"));
 
 
