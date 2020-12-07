@@ -58,7 +58,7 @@ const traerTours = async (req, res, next) => {
     try {
         const tours = await Tours.find({});
         res.json(tours);
-        res.status(200).json({msg: 'Tours obtenidos correctamente'});
+       // res.status(200).json({msg: 'Tours obtenidos correctamente'});
     } catch (error) {
         console.log('error al traer todos los tours', error);
         res.status(500).send({msg:'Ocurrio un error al traer todos los tours'});
@@ -75,7 +75,8 @@ exports.findAll = traerTours
     const findById = async (req, res) => {
         try {
             const tour = await Tours.findById(req.params.id);
-            res.status(200).json({ msg: 'Tours encontrado por id correctamente', tour });
+            res.json(tour);
+            //res.status(200).json({ msg: 'Tours encontrado por id correctamente', tour });
         } catch (error) {
             console.log('error al obtener tour por id', error);
             res.status(500).send('Hubo un error al obtener tour por id');

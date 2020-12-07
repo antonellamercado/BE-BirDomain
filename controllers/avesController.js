@@ -1,13 +1,14 @@
 //contendrá  las funciones que queremos que ejecute el server cuando se visitan las urls.
-const Ave = require('../models/Aves');
+const Aves = require('../models/Aves');
 
-// traer todos las aves
+// traer todas las aves
 
 
 exports.traerAves = async (req, res) => {
     try {
-        const Aves = await Ave.find({});
-        res.json(Aves);
+        const aves = await Aves.find({});
+        res.json(aves);
+        //res.status(200).json({msg: 'Aves obtenidas correctamente', aves});
     } catch (error) {
         console.log(error);
     }
@@ -15,8 +16,8 @@ exports.traerAves = async (req, res) => {
 
 exports.traerAve = async (req, res) => {
     try {
-        const Ave = await Ave.findById(req.params.id);
-        res.json(Ave);
+        const ave = await Aves.findById(req.params.id);
+        res.json(ave);
     } catch(error) {
         console.log(error);
         
