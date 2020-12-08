@@ -18,8 +18,8 @@ tourRouter.post('/',
 toursController.createTour);
 
 // nose si lo mejor es poner: tours/:id
-tourRouter.get('/:id', toursController.findById);
 tourRouter.get('/', toursController.findAll);
+tourRouter.get('/:id', toursController.findById);
 tourRouter.put('/:id', toursController.updateTour);
 tourRouter.delete('/:id',toursController.deleteTour);
 

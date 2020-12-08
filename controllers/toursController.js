@@ -72,7 +72,7 @@ exports.findAll = traerTours
 
 // traer tour por ID
 
-    const findById = async (req, res) => {
+    const findById = async (req, res, next) => {
         try {
             const tour = await Tours.findById(req.params.id);
             res.json(tour);
@@ -80,12 +80,11 @@ exports.findAll = traerTours
         } catch (error) {
             console.log('error al obtener tour por id', error);
             res.status(500).send('Hubo un error al obtener tour por id');
+            next();
         }
         res.end();
     }
     
-
-
 exports.findById = findById
 
 ///////////////////////////////////////////////////////7
