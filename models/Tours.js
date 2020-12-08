@@ -42,13 +42,11 @@ price:{
 },
 lat:{
     type: Array,
-    required: false,
-    trim: true
+    required: true,
 },
 latObs:{
     type: Array,
-    required: false,
-    trim: true
+    required: true,
 },
 dias:{
     type: Number,
