@@ -124,5 +124,16 @@ router.post ("/login", async (req,res) => {
      });
    });
 
+  router.put("/:id", async (req, res, next) => {
+    try {
+        const buy = await User.findOneAndUpdate({_id: req.params.id}, req.body, {
+            new: true
+        })
+        res.json(buy);
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+  });
 
 module.exports = router;
