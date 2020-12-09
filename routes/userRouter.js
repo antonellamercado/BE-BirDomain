@@ -50,7 +50,7 @@ router.post("/register", async (req, res) => {
 
 router.post ("/login", async (req,res) => {
     try{
-        const {email,password} = req.body;
+        const {email, password} = req.body;
         //validate
         if (!email || !password)
         return res
@@ -121,6 +121,7 @@ router.post ("/login", async (req,res) => {
        img:user.img,
        favs:user.favs,
        buys:user.buys,
+       admin:user.admin
      });
    });
 
@@ -136,4 +137,6 @@ router.post ("/login", async (req,res) => {
     }
   });
 
+
 module.exports = router;
+
