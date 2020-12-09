@@ -34,6 +34,5 @@ app.use("/api/users", require("./routes/userRouter"));
 app.use("/api/tours", require("./routes/tourRouter"));
 app.use("/api/aves", require("./routes/avesRouter"));
 app.use("/api/comentarios", require("./routes/comentariosRouter"));
-
-
+app.use("/api/buys", require("./routes/buysRouter"));
 
