@@ -30,7 +30,8 @@ exports.updateTour = async(req, res) => {
         }
         updateTour = await Tours.findOneAndUpdate({ _id: id }, body, { new: true });
         console.log(updateTour);
-        res.status(200).json({ msg: 'Tour actualizado', updateTour});
+        //res.status(200).json({ msg: 'Tour actualizado', updateTour});
+        res.json(updateTour);
     } catch (error) {
         console.log('error al crear tour', error);
         res.status(500).send({ msg: 'Ocurrio un error al editar tour' });
@@ -41,8 +42,9 @@ exports.updateTour = async(req, res) => {
 
 exports.deleteTour = async(req,res) => {
     try {
-        await Tours.findOneAndDelete ({_ir: req.params.id});
-        res.status(200).json({msg: 'Tour eliminado correctamente'});    
+        const deleteTour = await Tours.findOneAndDelete ({_ir: req.params.id});
+        res.json(deleteTour);
+        //res.status(200).json({msg: 'Tour eliminado correctamente'});    
     } catch (error) {
         console.log('ocurrio un error al eliminar tour',  error);
         res.status(400).json({msg: 'Ocurrio un error al eliminar tour'});
