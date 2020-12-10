@@ -73,6 +73,7 @@ router.post ("/login", async (req,res) => {
           displayName: user.displayName,
           favs: user.favs,
           buys:user.buys,
+          admin:user.admin
         },
       });
     } catch (err) {
