@@ -3,10 +3,11 @@ const nodemailer = require('nodemailer');
 const router = Router();
 
 router.post("/send-email", async (req, res) => {
-    const { message, userEmail } = req.body;
+    const { message, userEmail, token } = req.body;
 
     contentHTML = `
-        ${message}
+        <h4>${message}</h4>
+        <a href="http://localhost:3000/ChangePass/${token}">Cambiar Clave</a>
     `;
 
     const transporter = nodemailer.createTransport({
@@ -25,7 +26,7 @@ router.post("/send-email", async (req, res) => {
         from: "'Bird Domain'<birdmastertucuman@gmail.com>",
         to:`${userEmail}`,
         subject: 'Recuperar Contraseña',
-        text: contentHTML
+        html: contentHTML
     }
     await transporter.sendMail(mailOptions, function(error, info){
         if (error) {
