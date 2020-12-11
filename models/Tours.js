@@ -44,7 +44,15 @@ lat:{
     type: Array,
     required: true,
 },
+lat1:{
+    type: Array,
+    required: true,
+},
 latObs:{
+    type: Array,
+    required: true,
+},
+latObs1:{
     type: Array,
     required: true,
 },

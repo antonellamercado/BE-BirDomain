@@ -11,8 +11,9 @@ exports.createTour = async(req, res, next) => {
     //const {title, body, description, info, img, imgD, price, lat, latObs, dias, ecoregiones, especies, destacado } = req.body;
     const tour = new Tours(req.body);
     try {
-        await tour.save();
-        res.status(200).json({ message: 'Tour creado correctamente'});
+        const nuevo =await tour.save();
+        res.json(tour);
+        //res.status(200).json({ message: 'Tour creado correctamente'});
     } catch (error) {
         console.log('error al crear tour', error);
         res.status(500).send({ msg: 'Ocurrio un error al crear tour' });
