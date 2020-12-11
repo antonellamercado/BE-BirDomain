@@ -25,10 +25,10 @@ exports.createTour = async(req, res, next) => {
 exports.updateTour = async(req, res) => {
     const { params: { id }, body } = req;
     try {
-        let updateTour = await Tours.findById({ _id: id });
-        if (!updateTour) {
-            return res.status(404).json({ msg: 'No existe el tour' });
-        }
+        // let updateTour = await Tours.findById({ _id: id });
+        // if (!updateTour) {
+        //     return res.status(404).json({ msg: 'No existe el tour' });
+        // }
         updateTour = await Tours.findOneAndUpdate({ _id: id }, body, { new: true });
         console.log(updateTour);
         //res.status(200).json({ msg: 'Tour actualizado', updateTour});

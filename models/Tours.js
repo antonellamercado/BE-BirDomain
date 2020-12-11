@@ -43,6 +43,7 @@ price:{
 lat:{
     type: Array,
     required: true,
+    default:[]
 },
 lat1:{
     type: Array,
@@ -51,6 +52,7 @@ lat1:{
 latObs:{
     type: Array,
     required: true,
+    default:[]
 },
 latObs1:{
     type: Array,
