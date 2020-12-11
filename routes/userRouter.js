@@ -1,11 +1,10 @@
 const router = require ("express").Router();
-const User = require("../models/userModel")
+const User = require("../models/UserModel")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
-// router.get("/test", (req,res)=> {
-//     res.send("Working")
-// });
+const { check } = require('express-validator');
+
 
 
 router.post("/register", async (req, res) => {
@@ -16,14 +15,21 @@ router.post("/register", async (req, res) => {
 
     if (!email || !password || !passwordCheck)
     return res.status(400).json({ msg: "Falta ingresar campos" });
+
+    // let expEmail = /\w+@\w+\.+[a-z]/;
+    // if (!expEmail.test(email))
+    // return res
+    // .json(400)
+    // .json({ msg: "El formato de email no es valido" });
+
   if (password.length < 8)
     return res
       .status(400)
-      .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
+      .json({ msg: "La contraseña debe tener al menos 8 caracteres" });
   if (password !== passwordCheck)
     return res
       .status(400)
-      .json({ msg: "Ambas contrasenas deben coincidir" });
+      .json({ msg: "Ambas contraseñas deben coincidir" });
 
   const existingUser = await User.findOne({ email: email });
   if (existingUser)
@@ -50,7 +56,7 @@ router.post("/register", async (req, res) => {
 
 router.post ("/login", async (req,res) => {
     try{
-        const {email,password} = req.body;
+        const {email, password} = req.body;
         //validate
         if (!email || !password)
         return res
@@ -73,6 +79,7 @@ router.post ("/login", async (req,res) => {
           displayName: user.displayName,
           favs: user.favs,
           buys:user.buys,
+          admin:user.admin
         },
       });
     } catch (err) {
@@ -111,45 +118,46 @@ router.post ("/login", async (req,res) => {
 
  router.delete("/delete", auth, async (req, res) => {
     try {
-       const deletedUser = await User.findByIdAndDelete(req.user);
-       res.json(deletedUser);
-     } catch (err) {
+      const deletedUser = await User.findByIdAndDelete(req.user);
+        res.json(deletedUser);
+    } catch (err) {
       res.status(500).json({ error: err.message });
-     }
-   });
+    }
+  });
   
    //no es una ruta privada solo nos dice si esta logueado o no 
   // lo usamos en el frontend para verificar si esta logueado o no
 
-   router.post("/tokenIsValid", async (req, res) => {
-     try {
-       const token = req.header("x-auth-token");
+    router.post("/tokenIsValid", async (req, res) => {
+      try {
+      const token = req.header("x-auth-token");
       if (!token) return res.json(false);
   
-       const verified = jwt.verify(token, process.env.JWT_SECRET);
-       if (!verified) return res.json(false);
+      const verified = jwt.verify(token, process.env.JWT_SECRET);
+      if (!verified) return res.json(false);
   
-       const user = await User.findById(verified.id);
+      const user = await User.findById(verified.id);
       if (!user) return res.json(false);
   
       return res.json(true);
-     } catch (err) {
-       res.status(500).json({ error: err.message });
-     }
-   });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
   
    //cuando el usuario esta logueado recibimos el usuario
-   router.get("/", auth, async (req, res) => {
-     const user = await User.findById(req.user);
+    router.get("/", auth, async (req, res) => {
+      const user = await User.findById(req.user);
    //no devolvemos la app solo lo que necesitamo
-     res.json({
-       displayName: user.displayName,
-       id: user._id,
-       img:user.img,
-       favs:user.favs,
-       buys:user.buys,
-     });
-   });
+      res.json({
+        displayName: user.displayName,
+        id: user._id,
+        img:user.img,
+        favs:user.favs,
+        buys:user.buys,
+        admin:user.admin
+    });
+  });
 
   router.put("/:id", async (req, res, next) => {
     try {
@@ -166,27 +174,24 @@ router.post ("/login", async (req,res) => {
 router.post("/changePass", async (req, res) => {
   try {
     let {password, passwordCheck} = req.body;
+    if (!password || !passwordCheck)
+      return res.status(400).json({ msg: "Falta ingresar campos" });
+    if (password.length < 8)
+      return res
+        .status(400)
+        .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
+    if (password !== passwordCheck)
+      return res
+        .status(400)
+        .json({ msg: "Ambas contrasenas deben coincidir" });
 
-  //validation display name not req
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
 
-  if (!password || !passwordCheck)
-    return res.status(400).json({ msg: "Falta ingresar campos" });
-if (password.length < 8)
-  return res
-    .status(400)
-    .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
-if (password !== passwordCheck)
-  return res
-    .status(400)
-    .json({ msg: "Ambas contrasenas deben coincidir" });
-
-const salt = await bcrypt.genSalt();
-const passwordHash = await bcrypt.hash(password, salt);
-
-const newPass =({password: passwordHash});
-res.json(newPass); //usado por el frontend 
-} catch (err) {
-res.status(500).json({ error: err.message });
-}
+    const newPass =({password: passwordHash});
+    res.json(newPass); //usado por el frontend 
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
 });
 module.exports = router;

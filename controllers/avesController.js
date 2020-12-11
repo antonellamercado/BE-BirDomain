@@ -1,5 +1,5 @@
 //contendrá  las funciones que queremos que ejecute el server cuando se visitan las urls.
-const Aves = require('../models/Aves');
+const Aves = require('../models/AvesModel');
 
 // traer todas las aves
 
