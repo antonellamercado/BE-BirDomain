@@ -1,4 +1,4 @@
-const Tours = require('../models/Tours');
+const Tours = require('../models/ToursModel');
 const { validationResult } = require('express-validator');
 ///////////////////////////////////////////////////////
 //crear tour

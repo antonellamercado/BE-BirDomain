@@ -1,6 +1,6 @@
 const router = require ("express").Router();
 const auth = require("../middlewares/auth");
-const Buys = require("../models/buysModel");
+const Buys = require("../models/BuysModel");
 
 router.post("/", auth, async (req,res) => {
     try{
@@ -25,7 +25,7 @@ res.json (savedBuy)
 
 router.get("/allbuys" , auth, async (req,res) =>{
     const buys = await Buys.find({userId: req.user});
-   res.json(buys);
+    res.json(buys);
 
 });
 
