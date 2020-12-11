@@ -86,7 +86,34 @@ router.post ("/login", async (req,res) => {
       res.status(500).json({ error: err.message });
     }
   });
+  ////////////////
+  router.post ("/getTokenNP", async (req,res) => {
+    try{
+        const {email} = req.body;
+        if (!email)
+        return res
+        .status(400)
+        .json({ msg: "Deben ingresarse todos los campos" });
+      const user = await User.findOne({ email: email });
+      if (!user)
+        return res
+          .status(400)
+          .json({ msg: "No existe una cuenta con este email" });
   
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); //jwt es encoded para recuperar id del usuario logueado
+      res.json({
+        token,
+        user: {
+          id: user._id,
+          displayName: user.displayName,
+          favs: user.favs,
+          buys:user.buys,
+        },
+      });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
   //solo corra cundo el usuario esta login y validado por jwt pasa por auth 
 
  router.delete("/delete", auth, async (req, res) => {
@@ -143,7 +170,28 @@ router.post ("/login", async (req,res) => {
         next();
     }
   });
+////////////
+router.post("/changePass", async (req, res) => {
+  try {
+    let {password, passwordCheck} = req.body;
+    if (!password || !passwordCheck)
+      return res.status(400).json({ msg: "Falta ingresar campos" });
+    if (password.length < 8)
+      return res
+        .status(400)
+        .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
+    if (password !== passwordCheck)
+      return res
+        .status(400)
+        .json({ msg: "Ambas contrasenas deben coincidir" });
 
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
 
+    const newPass =({password: passwordHash});
+    res.json(newPass); //usado por el frontend 
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+});
 module.exports = router;
-

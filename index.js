@@ -4,6 +4,7 @@ const mongoose = require ("mongoose")
 const cors = require ("cors")
 require ("dotenv").config();
 const app = express ();
+const patch = require('path')
 
 //middlewares
 //lee arch json
@@ -34,5 +35,5 @@ app.use("/api/users", require("./routes/userRouter"));
 app.use("/api/tours", require("./routes/tourRouter"));
 app.use("/api/aves", require("./routes/avesRouter"));
 app.use("/api/comentarios", require("./routes/comentariosRouter"));
-app.use("/api/buys", require("./routes/buysRouter"));
-
+app.use(require("./routes/sendEmail"));
+app.use(express.urlencoded({extended:false}));
