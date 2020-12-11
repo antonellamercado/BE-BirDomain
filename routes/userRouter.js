@@ -3,9 +3,8 @@ const User = require("../models/userModel")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
-// router.get("/test", (req,res)=> {
-//     res.send("Working")
-// });
+const { check } = require('express-validator');
+
 
 
 router.post("/register", async (req, res) => {
@@ -16,14 +15,21 @@ router.post("/register", async (req, res) => {
 
     if (!email || !password || !passwordCheck)
     return res.status(400).json({ msg: "Falta ingresar campos" });
+
+    // let expEmail = /\w+@\w+\.+[a-z]/;
+    // if (!expEmail.test(email))
+    // return res
+    // .json(400)
+    // .json({ msg: "El formato de email no es valido" });
+
   if (password.length < 8)
     return res
       .status(400)
-      .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
+      .json({ msg: "La contraseña debe tener al menos 8 caracteres" });
   if (password !== passwordCheck)
     return res
       .status(400)
-      .json({ msg: "Ambas contrasenas deben coincidir" });
+      .json({ msg: "Ambas contraseñas deben coincidir" });
 
   const existingUser = await User.findOne({ email: email });
   if (existingUser)

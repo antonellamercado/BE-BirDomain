@@ -43,10 +43,12 @@ price:{
 lat:{
     type: Array,
     required: true,
+    default:[]
 },
 latObs:{
     type: Array,
     required: true,
+    default:[]
 },
 dias:{
     type: Number,
