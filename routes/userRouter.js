@@ -6,7 +6,7 @@ const auth = require("../middlewares/auth");
 const { check } = require('express-validator');
 
 
-
+//register
 router.post("/register", async (req, res) => {
     try {
     let {email, password, passwordCheck, displayName} = req.body;
@@ -53,7 +53,7 @@ router.post("/register", async (req, res) => {
   res.status(500).json({ error: err.message });
 }
 });
-
+// login
 router.post ("/login", async (req,res) => {
     try{
         const {email, password} = req.body;
