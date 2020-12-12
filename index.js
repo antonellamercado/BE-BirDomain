@@ -11,9 +11,9 @@ const patch = require('path')
 app.use(express.json());
 // habilita request desde cualq url
 app.use(cors());
-// 
+// 4RiXv3z23d9FSuA6
 
-const db = process.env.MONGODB_CONNECTION_STRING || "mongodb+srv://dev:<password>@cluster.z4bl6.mongodb.net/<dbname>?retryWrites=true&w=majority"
+const db = process.env.MONGODB_CONNECTION_STRING || "mongodb+srv://dev:4RiXv3z23d9FSuA6@cluster.z4bl6.mongodb.net/<dbname>?retryWrites=true&w=majority"
 mongoose.connect(db, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
