@@ -1,5 +1,5 @@
 const router = require ("express").Router();
-const User = require("../models/UserModel")
+const user = require("../models/UserModel")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
       .status(400)
       .json({ msg: "Ambas contraseñas deben coincidir" });
 
-  const existingUser = await User.findOne({ email: email });
+  const existingUser = await user.findOne({ email: email });
   if (existingUser)
     return res
       .status(400)
