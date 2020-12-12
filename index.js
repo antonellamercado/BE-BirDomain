@@ -11,12 +11,10 @@ const patch = require('path')
 app.use(express.json());
 // habilita request desde cualq url
 app.use(cors());
+// 
 
-//Puertos 
-//heroku hay que buscar
-//heroku usa un puerto y asigna
-//mongoose nos conecta a mongoDB
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
+const db = process.env.MONGODB_CONNECTION_STRING || "mongodb+srv://dev:<password>@cluster.z4bl6.mongodb.net/<dbname>?retryWrites=true&w=majority"
+mongoose.connect(db, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
     useCreateIndex:true,
@@ -24,6 +22,18 @@ mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
     if (err) throw err;
     console.log("MongoDB connection established")
 });
+
+
+
+//mongoose nos conecta a mongoDB
+/*mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
+    useNewUrlParser:true,
+    useUnifiedTopology:true,
+    useCreateIndex:true,
+}, (err)=>{
+    if (err) throw err;
+    console.log("MongoDB connection established")
+});*/
 
 
 
