@@ -7,6 +7,7 @@ const app = express ();
 const patch = require('path')
 
 //middlewares
+app.use(express.urlencoded({extended:false}));
 //lee arch json
 app.use(express.json());
 // habilita request desde cualq url
@@ -50,4 +51,3 @@ app.use("/api/tours", require("./routes/tourRouter"));
 app.use("/api/aves", require("./routes/avesRouter"));
 app.use("/api/comentarios", require("./routes/comentariosRouter"));
 app.use(require("./routes/sendEmail"));
-app.use(express.urlencoded({extended:false}));
