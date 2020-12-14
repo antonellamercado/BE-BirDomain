@@ -10,7 +10,7 @@ const { check } = require('express-validator');
 router.post("/register", async (req, res) => {
     try {
     let {email, password, passwordCheck, displayName} = req.body;
-      console.log(req.body)
+    
     //validation display name not req
 
     if (!email || !password || !passwordCheck)
@@ -31,7 +31,7 @@ router.post("/register", async (req, res) => {
       .status(400)
       .json({ msg: "Ambas contraseñas deben coincidir" });
 
-  const existingUser = await user.findOne({ email: email });
+  const existingUser = await User.findOne({ email: email });
   if (existingUser)
     return res
       .status(400)
