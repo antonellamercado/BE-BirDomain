@@ -10,7 +10,7 @@ const { check } = require('express-validator');
 router.post("/register", async (req, res) => {
     try {
     let {email, password, passwordCheck, displayName} = req.body;
-
+      console.log(req.body)
     //validation display name not req
 
     if (!email || !password || !passwordCheck)
@@ -50,6 +50,7 @@ router.post("/register", async (req, res) => {
   const savedUser = await newUser.save();
   res.json(savedUser); //usado por el frontend 
 } catch (err) {
+  console.log(err)
   res.status(500).json({ error: err.message });
 }
 });
@@ -114,6 +115,7 @@ router.post ("/login", async (req,res) => {
       res.status(500).json({ error: err.message });
     }
   });
+  
   //solo corra cundo el usuario esta login y validado por jwt pasa por auth 
 
  router.delete("/delete", auth, async (req, res) => {
