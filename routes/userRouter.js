@@ -16,12 +16,6 @@ router.post("/register", async (req, res) => {
     if (!email || !password || !passwordCheck)
     return res.status(400).json({ msg: "Falta ingresar campos" });
 
-    // let expEmail = /\w+@\w+\.+[a-z]/;
-    // if (!expEmail.test(email))
-    // return res
-    // .json(400)
-    // .json({ msg: "El formato de email no es valido" });
-
   if (password.length < 8)
     return res
       .status(400)
