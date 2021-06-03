@@ -12,7 +12,7 @@ router.post("/send-email", async (req, res) => {
         <a href="http://bird-domain.herokuapp.com/ChangePass/${token}">Cambiar Clave</a>
     `;
 
-    const transporter = nodemailer.createTransport({
+    /*const transporter = nodemailer.createTransport({
         host: 'smtp.office365.com',
         port: 587,
         secure: false, // use SSL
@@ -35,7 +35,27 @@ router.post("/send-email", async (req, res) => {
         }   
    });
     console.log('Mensaje enviado')
-    res.send('recibido');
+    res.send('recibido');*/
+    nodemailer.sendEmail({
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false, // use SSL
+        auth: {
+            user: "birdmastertucuman@outlook.com",
+            pass: "BirdDomain77"
+        },
+        from: 'birdmastertucuman@outlook.com',
+        to: `${userEmail}`,
+        subject: 'Recuperar Contraseña',
+        html: contentHTML,
+        
+        
+        onError: (e) => console.log(e),
+        onSuccess: (i) => console.log(i)
+    }
+    
+    
+    );
 });
 
 module.exports = router;
