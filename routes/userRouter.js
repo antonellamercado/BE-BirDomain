@@ -166,27 +166,24 @@ router.post ("/login", async (req,res) => {
 router.post("/changePass", async (req, res) => {
   try {
     let {password, passwordCheck} = req.body;
+    if (!password || !passwordCheck)
+      return res.status(400).json({ msg: "Falta ingresar campos" });
+    if (password.length < 8)
+    return res
+      .status(400)
+      .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
+    if (password !== passwordCheck)
+    return res
+      .status(400)
+      .json({ msg: "Ambas contrasenas deben coincidir" });
 
-  //validation display name not req
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
 
-  if (!password || !passwordCheck)
-    return res.status(400).json({ msg: "Falta ingresar campos" });
-if (password.length < 8)
-  return res
-    .status(400)
-    .json({ msg: "La contrasena debe tener al menos 8 caracteres" });
-if (password !== passwordCheck)
-  return res
-    .status(400)
-    .json({ msg: "Ambas contrasenas deben coincidir" });
-
-const salt = await bcrypt.genSalt();
-const passwordHash = await bcrypt.hash(password, salt);
-
-const newPass =({password: passwordHash});
-res.json(newPass); //usado por el frontend 
-} catch (err) {
-res.status(500).json({ error: err.message });
-}
+    const newPass =({password: passwordHash});
+    res.json(newPass); //usado por el frontend 
+  } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
 });
 module.exports = router;
