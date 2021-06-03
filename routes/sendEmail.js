@@ -19,9 +19,6 @@ router.post("/send-email", async (req, res) => {
         auth:{
             user:'birdmastertucuman@gmail.com',
             pass:'BirdDomain77'
-        },
-        tls:{
-            rejectUnauthorized: false
         }
     });
     const mailOptions= {
