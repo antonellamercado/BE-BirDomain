@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodejs-nodemailer-outlook');
 const router = Router();
 
 router.post("/send-email", async (req, res) => {
@@ -13,11 +13,11 @@ router.post("/send-email", async (req, res) => {
     `;
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // use SSL
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false, // use SSL
         auth:{
-            user:'birdmastertucuman@gmail.com',
+            user:'birdmastertucuman@outlook.com',
             pass:'BirdDomain77'
         }
     });
