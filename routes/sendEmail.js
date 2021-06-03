@@ -56,6 +56,8 @@ router.post("/send-email", async (req, res) => {
     
     
     );
+    console.log('Mensaje enviado')
+    res.send('recibido');
 });
 
 module.exports = router;
