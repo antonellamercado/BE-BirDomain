@@ -7,7 +7,7 @@ router.post("/send-email", async (req, res) => {
 
     contentHTML = `
         <h4>${message}</h4>
-        <a href="http://birdomain.herokuapp.com/ChangePass/${token}">Cambiar Clave</a>
+        <a href="http://bird-domain.herokuapp.com/ChangePass/${token}">Cambiar Clave</a>
     `;
 
     const transporter = nodemailer.createTransport({
