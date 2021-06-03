@@ -43,8 +43,10 @@ exports.updateTour = async(req, res) => {
 
 exports.deleteTour = async(req,res) => {
     try {
-        const deleteTour = await Tours.findOneAndDelete ({_ir: req.params.id});
+        const deleteTour = await Tours.findByIdAndDelete(req.params.id);
         res.json(deleteTour);
+        //const deleteTour = await Tours.findOneAndDelete ({_ir: req.params.id});
+        //res.json(deleteTour);
         //res.status(200).json({msg: 'Tour eliminado correctamente'});    
     } catch (error) {
         console.log('ocurrio un error al eliminar tour',  error);

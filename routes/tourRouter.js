@@ -23,5 +23,6 @@ tourRouter.get('/:id', toursController.findById);
 tourRouter.put('/:id', toursController.updateTour);
 tourRouter.patch('/:id', toursController.updateTour);
 tourRouter.delete('/:id',toursController.deleteTour);
+tourRouter.patch('/:id', toursController.updateTour);
 
 module.exports = tourRouter;
