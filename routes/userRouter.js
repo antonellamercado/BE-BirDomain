@@ -1,26 +1,20 @@
 const router = require ("express").Router();
-const User = require("../models/UserModel")
+const User = require("../models/userModel")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
 const { check } = require('express-validator');
 
 
-
+//register
 router.post("/register", async (req, res) => {
     try {
     let {email, password, passwordCheck, displayName} = req.body;
-
+    
     //validation display name not req
 
     if (!email || !password || !passwordCheck)
     return res.status(400).json({ msg: "Falta ingresar campos" });
-
-    // let expEmail = /\w+@\w+\.+[a-z]/;
-    // if (!expEmail.test(email))
-    // return res
-    // .json(400)
-    // .json({ msg: "El formato de email no es valido" });
 
   if (password.length < 8)
     return res
@@ -50,10 +44,11 @@ router.post("/register", async (req, res) => {
   const savedUser = await newUser.save();
   res.json(savedUser); //usado por el frontend 
 } catch (err) {
+  console.log(err)
   res.status(500).json({ error: err.message });
 }
 });
-
+// login
 router.post ("/login", async (req,res) => {
     try{
         const {email, password} = req.body;
@@ -114,6 +109,7 @@ router.post ("/login", async (req,res) => {
       res.status(500).json({ error: err.message });
     }
   });
+  
   //solo corra cundo el usuario esta login y validado por jwt pasa por auth 
 
  router.delete("/delete", auth, async (req, res) => {
