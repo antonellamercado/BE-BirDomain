@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodejs-nodemailer-outlook');
 const router = Router();
 
 router.post("/send-email", async (req, res) => {
@@ -9,19 +9,16 @@ router.post("/send-email", async (req, res) => {
 
     contentHTML = `
         <h4>${message}</h4>
-        <a href="http://birdomain.herokuapp.com/ChangePass/${token}">Cambiar Clave</a> 
+        <a href="http://bird-domain.herokuapp.com/ChangePass/${token}">Cambiar Clave</a>
     `;
 
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // use SSL
+    /*const transporter = nodemailer.createTransport({
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false, // use SSL
         auth:{
-            user:'birdmastertucuman@gmail.com',
+            user:'birdmastertucuman@outlook.com',
             pass:'BirdDomain77'
-        },
-        tls:{
-            rejectUnauthorized: false
         }
     });
     const mailOptions= {
@@ -37,6 +34,28 @@ router.post("/send-email", async (req, res) => {
             console.log('Email sent: ' + info.response);  
         }   
    });
+    console.log('Mensaje enviado')
+    res.send('recibido');*/
+    nodemailer.sendEmail({
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false, // use SSL
+        auth: {
+            user: "birdmastertucuman@outlook.com",
+            pass: "BirdDomain77"
+        },
+        from: 'birdmastertucuman@outlook.com',
+        to: `${userEmail}`,
+        subject: 'Recuperar Contraseña',
+        html: contentHTML,
+        
+        
+        onError: (e) => console.log(e),
+        onSuccess: (i) => console.log(i)
+    }
+    
+    
+    );
     console.log('Mensaje enviado')
     res.send('recibido');
 });
