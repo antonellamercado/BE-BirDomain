@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
     buys:{
         type:Array,
         default:[],
+    },
+
+    admin:{
+        type: Boolean,
+        default: false
     }
 })
 

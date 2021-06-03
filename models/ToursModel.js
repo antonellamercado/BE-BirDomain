@@ -43,8 +43,18 @@ price:{
 lat:{
     type: Array,
     required: true,
+    default:[]
+},
+lat1:{
+    type: Array,
+    required: true,
 },
 latObs:{
+    type: Array,
+    required: true,
+    default:[]
+},
+latObs1:{
     type: Array,
     required: true,
 },

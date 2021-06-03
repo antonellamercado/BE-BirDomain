@@ -1,4 +1,4 @@
-const Tours = require('../models/Tours');
+const Tours = require('../models/ToursModel');
 const { validationResult } = require('express-validator');
 ///////////////////////////////////////////////////////
 //crear tour
@@ -11,8 +11,9 @@ exports.createTour = async(req, res, next) => {
     //const {title, body, description, info, img, imgD, price, lat, latObs, dias, ecoregiones, especies, destacado } = req.body;
     const tour = new Tours(req.body);
     try {
-        await tour.save();
-        res.status(200).json({ message: 'Tour creado correctamente'});
+        const nuevo =await tour.save();
+        res.json(tour);
+        //res.status(200).json({ message: 'Tour creado correctamente'});
     } catch (error) {
         console.log('error al crear tour', error);
         res.status(500).send({ msg: 'Ocurrio un error al crear tour' });
@@ -24,13 +25,14 @@ exports.createTour = async(req, res, next) => {
 exports.updateTour = async(req, res) => {
     const { params: { id }, body } = req;
     try {
-        let updateTour = await Tours.findById({ _id: id });
-        if (!updateTour) {
-            return res.status(404).json({ msg: 'No existe el tour' });
-        }
+        // let updateTour = await Tours.findById({ _id: id });
+        // if (!updateTour) {
+        //     return res.status(404).json({ msg: 'No existe el tour' });
+        // }
         updateTour = await Tours.findOneAndUpdate({ _id: id }, body, { new: true });
         console.log(updateTour);
-        res.status(200).json({ msg: 'Tour actualizado', updateTour});
+        //res.status(200).json({ msg: 'Tour actualizado', updateTour});
+        res.json(updateTour);
     } catch (error) {
         console.log('error al crear tour', error);
         res.status(500).send({ msg: 'Ocurrio un error al editar tour' });
@@ -41,8 +43,9 @@ exports.updateTour = async(req, res) => {
 
 exports.deleteTour = async(req,res) => {
     try {
-        await Tours.findOneAndDelete ({_ir: req.params.id});
-        res.status(200).json({msg: 'Tour eliminado correctamente'});    
+        const deleteTour = await Tours.findOneAndDelete ({_ir: req.params.id});
+        res.json(deleteTour);
+        //res.status(200).json({msg: 'Tour eliminado correctamente'});    
     } catch (error) {
         console.log('ocurrio un error al eliminar tour',  error);
         res.status(400).json({msg: 'Ocurrio un error al eliminar tour'});
